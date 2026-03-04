@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+#map {
+    height: 50vh;
+    width: 100%;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #1a1a1a;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #333;
+}
+
+th {
+    background: #272626;
+}
+
+.safe {
+    color: lime;
+    font-weight: bold;
+}
+
+.alert {
+    color: red;
+    font-weight: bold;
+}
+.battery-high {
+    color: lime;
+    font-weight: bold;
+}
+
+.battery-medium {
+    color: gold;
+    font-weight: bold;
+}
+
+.battery-low {
+    color: red;
+    font-weight: bold;
+}
+
+.offline {
+    background-color: #400;
+    color: white;
+}
+
+
+
+
+.offline {
+    background-color: #400;
+    color: white;
+}
+.battery-text {
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    position: relative;
+    left: 5px;
+}
+
+.battery-bar { position: relative; width: 100%; height: 18px; background: #333; border-radius: 10px; overflow: hidden; }
+.battery-fill { height: 100%; transition: width 0.5s ease; }
+.battery-fill::after { content: attr(data-percent) '%'; position: absolute; width: 100%; text-align: center; top: 0; left: 0; color: #fff; font-size: 12px; font-weight: bold; }
+.battery-high { background-color: lime; }
+.battery-medium { background-color: gold; }
+.battery-low { background-color: red; }
+
+@keyframes pulse { 0% {background-color: rgba(255,0,0,0.4);} 50% {background-color: rgba(255,0,0,1);} 100% {background-color: rgba(255,0,0,0.4);} }
+.alert-row { animation: pulse 1s infinite; }
+
+.alert { color: red; font-weight: bold; }
+.safe { color: green; font-weight: bold; }
+
+.marker-glow { filter: drop-shadow(0 0 8px red); }
+.drone-label { font-weight: bold; color: rgb(24, 23, 23); text-shadow: 0 0 3px rgb(253, 253, 253); }
