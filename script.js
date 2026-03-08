@@ -1,21 +1,21 @@
-// script.js - ZoneAware AI frontend definitivo
+
 const CRITICAL_LAT = 41.395;
 const CRITICAL_LON = 2.180;
 const CRITICAL_RADIUS = 300;
 
-// Colores únicos por drone
 const droneColors = {
     "DR-001": "blue",
     "DR-002": "green",
     "DR-003": "purple"
 };
 
+
 const map = L.map("map").setView([CRITICAL_LAT, CRITICAL_LON], 15);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Zona crítica
+
 L.circle([CRITICAL_LAT, CRITICAL_LON], {
     radius: CRITICAL_RADIUS,
     color: "red",
@@ -25,8 +25,9 @@ L.circle([CRITICAL_LAT, CRITICAL_LON], {
 
 const markers = {};
 
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371000; 
+    const R = 6371000;
     const toRad = deg => deg * Math.PI / 180;
     lat1 = toRad(lat1); lon1 = toRad(lon1);
     lat2 = toRad(lat2); lon2 = toRad(lon2);
@@ -37,9 +38,18 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
+
+let API_URL;
+if (window.location.hostname === "localhost") {
+    API_URL = "http://localhost:8000"; 
+} else {
+    API_URL = "https://zoneaware-ai-backend.onrender.com"; r
+}
+
+
 async function fetchDrones() {
     try {
-        const response = await fetch("http://127.0.0.1:8000/drones");
+        const response = await fetch(`${API_URL}/drones`);
         const drones = await response.json();
         const tableBody = document.querySelector("#droneTable tbody");
         tableBody.innerHTML = "";
@@ -50,9 +60,9 @@ async function fetchDrones() {
             const battery = Math.round(drone.battery);
 
             const baseColor = droneColors[drone.id] || "lime";
-            let markerColor = battery === 0 ? "darkred" : baseColor; // SAFE o OFFLINE
+            let markerColor = battery === 0 ? "darkred" : baseColor;
 
-            // Crear o actualizar marker
+            
             if (!markers[drone.id]) {
                 markers[drone.id] = L.circleMarker([drone.lat, drone.lon], {
                     radius: 8,
@@ -64,11 +74,10 @@ async function fetchDrones() {
                 .bindTooltip(drone.id, {permanent: true, direction: "top", className: "drone-label"})
                 .addTo(map);
             } else {
-                // Actualizamos posición, pero no color base
                 markers[drone.id].setLatLng([drone.lat, drone.lon]);
             }
 
-            // Tabla y barra de batería
+            
             let batteryClass = battery > 50 ? "battery-high" :
                                battery > 20 ? "battery-medium" : "battery-low";
 
@@ -94,7 +103,7 @@ async function fetchDrones() {
             `;
             tableBody.appendChild(row);
 
-            // Marker pulsante y glow si ALERT
+            
             const marker = markers[drone.id];
             if (insideCriticalZone && battery > 0) {
                 clearInterval(marker.pulseInterval);
@@ -111,7 +120,7 @@ async function fetchDrones() {
             }
         });
 
-        // FitBounds seguro
+       
         const bounds = Object.values(markers)
             .map(m => m.getLatLng())
             .filter(latlng => !isNaN(latlng.lat) && !isNaN(latlng.lng));
@@ -121,6 +130,7 @@ async function fetchDrones() {
         console.error("Error fetching drones:", error);
     }
 }
+
 
 setInterval(fetchDrones, 2000);
 fetchDrones();
