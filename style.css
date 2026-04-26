@@ -19,15 +19,19 @@ table {
     background: #1a1a1a;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #333;
-}
 
 th {
-    background: #272626;
+    background: rgba(56,189,248,0.2);
+    padding: 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
+td {
+    padding: 10px;
+    text-align: center;
+    font-family: monospace;
+}
 .safe {
     color: lime;
     font-weight: bold;
@@ -80,10 +84,61 @@ th {
 .battery-low { background-color: red; }
 
 @keyframes pulse { 0% {background-color: rgba(255,0,0,0.4);} 50% {background-color: rgba(255,0,0,1);} 100% {background-color: rgba(255,0,0,0.4);} }
-.alert-row { animation: pulse 1s infinite; }
+.alert-row {  background: rgba(239,68,68,0.15); animation: pulse 1s infinite; }
 
 .alert { color: red; font-weight: bold; }
 .safe { color: green; font-weight: bold; }
 
 .marker-glow { filter: drop-shadow(0 0 8px red); }
 .drone-label { font-weight: bold; color: rgb(24, 23, 23); text-shadow: 0 0 3px rgb(253, 253, 253); }
+
+@media (max-width: 768px) {
+
+    body {
+        font-size: 16px; 
+    }
+
+    h1, h2, h3 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    
+    table {
+        font-size: 0.95rem;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    
+    td:first-child {
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    
+    td {
+        font-size: 0.9rem;
+    }
+
+    
+    .battery-bar {
+        height: 14px;
+    }
+
+   
+    #map {
+        height: 350px; 
+    }
+
+   
+    .drone-label {
+        font-size: 0.8rem !important;
+    }
+    td {
+    font-family: monospace;
+}
+
+}
