@@ -43,7 +43,7 @@ let API_URL;
 if (window.location.hostname === "localhost") {
     API_URL = "http://localhost:8000"; 
 } else {
-    API_URL = "https://zoneaware-ai-backend.onrender.com"; r
+    API_URL = "https://zoneaware-ai-backend.onrender.com"; 
 }
 
 
