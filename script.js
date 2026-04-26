@@ -131,6 +131,12 @@ async function fetchDrones() {
     }
 }
 
+setInterval(async () => {
+    try {
+        await fetch(API_URL + "/tick", { method: "POST" });
+    } catch (e) {
+        console.error("Tick error:", e);
+    }
 
-setInterval(fetchDrones, 2000);
-fetchDrones();
+    fetchDrones();
+}, 2000);
